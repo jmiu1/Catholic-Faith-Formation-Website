@@ -2,43 +2,40 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { siteStructure } from '@/lib/pageContent';
 
-const treeData = [
-  {
-    id: 'god',
-    label: 'God',
-    pages: ['page-1', 'page-2', 'page-3']
-  },
-  {
-    id: 'jesus',
-    label: 'Jesus',
-    pages: ['page-4', 'page-5', 'page-6']
-  },
-  {
-    id: 'catholicism',
-    label: 'Catholicism',
-    pages: ['page-7', 'page-8', 'page-9']
-  }
-];
-
-export default function SiteShell({ currentPath, title, description }) {
+export default function SiteShell({ currentPath, title, children }) {
   const [openSections, setOpenSections] = useState({
-    god: true,
-    jesus: true,
-    catholicism: true
+    God: true,
+    Jesus: true,
+    Catholicism: true
   });
+
   const [checkedItems, setCheckedItems] = useState({});
+  const [hasLoadedProgress, setHasLoadedProgress] = useState(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem('checklist-progress');
+
     if (saved) {
-      setCheckedItems(JSON.parse(saved));
+      try {
+        setCheckedItems(JSON.parse(saved));
+      } catch {
+        setCheckedItems({});
+      }
     }
+
+    setHasLoadedProgress(true);
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem('checklist-progress', JSON.stringify(checkedItems));
-  }, [checkedItems]);
+    if (!hasLoadedProgress) return;
+
+    window.localStorage.setItem(
+      'checklist-progress',
+      JSON.stringify(checkedItems)
+    );
+  }, [checkedItems, hasLoadedProgress]);
 
   const toggleSection = (id) => {
     setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -53,7 +50,7 @@ export default function SiteShell({ currentPath, title, description }) {
       <aside className="sidebar">
         <h1 className="brand">Checklist</h1>
         <nav aria-label="Checklist sections">
-          {treeData.map((section) => (
+          {siteStructure.map((section) => (
             <div key={section.id} className="tree-section">
               <button
                 type="button"
@@ -66,20 +63,21 @@ export default function SiteShell({ currentPath, title, description }) {
 
               {openSections[section.id] && (
                 <ul className="tree-list">
-                  {section.pages.map((pageSlug) => {
-                    const pagePath = `/${section.id}/${pageSlug}`;
-                    const itemKey = `${section.id}-${pageSlug}`;
+                  {section.pages.map((pageItem) => {
+                    const pagePath = `/${section.id}/${pageItem.slug}`;
+                    const itemKey = `${section.id}-${pageItem.slug}`;
                     const isActive = currentPath === pagePath;
 
                     return (
-                      <li key={pageSlug} className={isActive ? 'active' : ''}>
+                      <li key={pageItem.slug} className={isActive ? 'active' : ''}>
                         <label className="tree-item">
                           <input
                             type="checkbox"
                             checked={Boolean(checkedItems[itemKey])}
                             onChange={() => toggleCheck(itemKey)}
                           />
-                          <Link href={pagePath}>{pageSlug.replace('-', ' ')}</Link>
+
+                          <Link href={pagePath}>{pageItem.navLabel}</Link>
                         </label>
                       </li>
                     );
@@ -94,7 +92,7 @@ export default function SiteShell({ currentPath, title, description }) {
       <section className="content">
         <article className="content-card">
           <h2>{title}</h2>
-          <p>{description}</p>
+          {children}
         </article>
       </section>
     </main>
