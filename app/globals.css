@@ -66,7 +66,6 @@ body {
 .tree-item a {
   color: var(--text);
   text-decoration: none;
-  text-transform: capitalize;
 }
 
 .active a {
@@ -93,6 +92,20 @@ body {
 }
 
 .content-card p {
+  line-height: 1.6;
+}
+
+.spaced-list li {
+  margin-bottom: 0.5rem;
+}
+
+.spaced-list ul {
+  margin-top: 0.5rem;
+}
+
+.citation {
+  margin-top: 1rem;
+  font-size: 0.95rem;
   color: var(--muted);
   line-height: 1.6;
 }

@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
 import SiteShell from '@/components/SiteShell';
-import { pageContent } from '@/lib/pageContent';
+import { pageContent, toSlug } from '@/lib/pageContent';
 
 export default async function ChecklistPage({ params }) {
   const { category, page } = await params;
-  const content = pageContent[category]?.[page];
+  const content = pageContent[category]?.find(
+    (item) => toSlug(item.navLabel || item.title) === page
+  );
 
   if (!content) {
     notFound();
