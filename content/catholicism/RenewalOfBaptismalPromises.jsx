@@ -62,8 +62,8 @@ export default function RenewalOfBaptismalPromises() {
 
             <h3><u>Sacraments</u></h3>
             <ul className="spaced-list">
-                <li>Eucharist - Real Presence</li>
                 <li>Baptism - Purpose and Method</li>
+                <li>Eucharist - Real Presence</li>
             </ul>
 
             <br /><br />
