@@ -11,6 +11,35 @@ export default function SiteShell({ currentPath, title, children }) {
     Catholicism: true
   });
 
+  const [hasLoadedOpenSections, setHasLoadedOpenSections] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem('open-sections');
+
+    if (saved) {
+      try {
+        setOpenSections(JSON.parse(saved));
+      } catch {
+        setOpenSections({
+          God: true,
+          Jesus: true,
+          Catholicism: true
+        });
+      }
+    }
+
+    setHasLoadedOpenSections(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hasLoadedOpenSections) return;
+
+    window.localStorage.setItem(
+      'open-sections',
+      JSON.stringify(openSections)
+    );
+  }, [openSections, hasLoadedOpenSections]);
+
   const [checkedItems, setCheckedItems] = useState({});
   const [hasLoadedProgress, setHasLoadedProgress] = useState(false);
 
