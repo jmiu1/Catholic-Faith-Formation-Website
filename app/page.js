@@ -1,11 +1,10 @@
 import SiteShell from '@/components/SiteShell';
+import HomePage from '@/content/HomePage';
 
-export default function HomePage() {
+export default function Page() {
   return (
-    <SiteShell
-      currentPath="/"
-      title="Welcome"
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Use the left panel to open any checklist page."
-    />
+    <SiteShell>
+      <HomePage />
+    </SiteShell>
   );
 }
