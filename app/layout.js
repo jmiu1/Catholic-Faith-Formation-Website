@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Catholic Faith Formation Checklist',
-  description: 'A basic checklist website starter built with Next.js and ready for Netlify deployment.'
+  description: 'A website designed to both be a resource and an overview for Catholic faith formation throughout every stage from God to Jesus to Catholicism.'
 };
 
 export default function RootLayout({ children }) {

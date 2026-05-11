@@ -131,7 +131,7 @@ export default function SiteShell({ children }) {
   return (
     <main className="app-shell">
       <aside className="sidebar">
-        <h1 className="brand">Checklist</h1>
+        <h1 className="brand">Faith Formation Checklist</h1>
 
         <nav aria-label="Checklist sections">
           {siteStructure.map((section) => (
