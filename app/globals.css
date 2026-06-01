@@ -144,3 +144,31 @@ body {
     border-bottom: 1px solid var(--border);
   }
 }
+
+/* Custom Table Styling for Content Pages */
+.content-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.content-card th {
+    background-color: #f0e6d2; /* Matches your sidebar background tint */
+    color: var(--accent);      /* Uses your deep burgundy Catholic accent */
+    font-weight: bold;
+    border-bottom: 2px solid var(--border); /* Uses your muted gold border */
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.content-card td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border); /* Soft separation line */
+    color: var(--text);
+}
+
+/* Subtle zebra striping using a soft opacity tint of your theme */
+.content-card tr:nth-child(even) td {
+    background-color: rgba(214, 199, 161, 0.15); 
+}
